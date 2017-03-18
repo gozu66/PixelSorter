@@ -2,12 +2,14 @@ PImage img01;
 PImage img02;
 PImage outputImage;
 
+float timer;
+
 void setup()
-{
-  img01 = loadImage("sim01_sm.jpg");  
-  img02 = loadImage("sim02_sm.jpg");  
+{  
+  img01 = loadImage("IMAG0374.jpg");  
+  img02 = loadImage("sim02.jpg");  
   outputImage = createImage(img01.pixelWidth, img01.pixelHeight, RGB);
-  surface.setSize(img01.pixelWidth * 3, img01.pixelHeight);
+  surface.setSize(img01.pixelWidth * 2, img01.pixelHeight);
 }
 
 boolean running, displaying;
@@ -17,15 +19,22 @@ void draw()
   if (!displaying)
   {
     displaying = true;
-    displayImages(img01, img02, null);
+    displayImages(img01, null, null);
   }
 
   if (keyPressed && !running)
   {
     running = true;
-    //outputImage = img01.copy();
-    //sortPixels(outputImage);
-    recreateImage(img01, img02);
+    outputImage = img01.copy();
+    
+    timer = millis();
+    //recreateImage(img01, img02);
+    sortPixels(outputImage);
+    timer = millis() - timer;
+    
+    timer = timer / 1000;
+    print("Sort time : " + timer + "s");
+    saveImages();
   }
 }
 
@@ -47,7 +56,7 @@ void sortPixels(PImage input)
     int selectedPixel = i;
     for (int j = i; j < inputLen; j++)
     {
-      float b = saturation(input.pixels[j]);
+      float b = brightness(input.pixels[j]);
       if (b > selectedColor)
       {
         selectedPixel = j;
@@ -60,7 +69,7 @@ void sortPixels(PImage input)
   }
   input.updatePixels();
 
-  displayImages(img01, outputImage, null);
+  displayImages(img01, null, outputImage);
   running = false;
 }
 
@@ -101,8 +110,7 @@ void recreateImage(PImage imageToCopy, PImage imageToEdit)
   imageToEdit.updatePixels();
   outputImage.updatePixels();
   displayImages(imageToCopy, img02, outputImage);
-  save("full04");
-  outputImage.save("output04");
+  saveImages();
 }
 
 void displayImages(PImage upLeft, PImage upRight, PImage downCenter)
@@ -110,4 +118,10 @@ void displayImages(PImage upLeft, PImage upRight, PImage downCenter)
   if (upLeft != null)image(upLeft, 0, 0);
   if (upRight != null)image(upRight, img01.pixelWidth * 2, 0);
   if (downCenter != null)image(downCenter, img01.pixelWidth, 0);
+}
+
+void saveImages()
+{
+  save("full" + minute() + hour() + "_" + day() + "." + month() + "." + year());
+  outputImage.save("output" + minute() + hour() + "_" + day() + "." + month() + "." + year());
 }
