@@ -29,18 +29,19 @@ color[] quicksort(color[] inputArray) //<>//
 
   if (leftArray.length > 1)
   {
-    int [] sortedLeftArray = doQuicksort(leftArray);
-    arrayCopy(sortedLeftArray, 0, inputArray, 0, sortedLeftArray.length);
+    //int [] sortedLeftArray = doQuicksort(leftArray);
+    //arrayCopy(sortedLeftArray, 0, inputArray, 0, sortedLeftArray.length);
   }
 
   if (rightArray.length > 1)
   {
-    int [] sortedRightArray = doQuicksort(rightArray);        
-    arrayCopy(sortedRightArray, 0, inputArray, rightStart, sortedRightArray.length);
+    //int [] sortedRightArray = doQuicksort(rightArray);        
+    //arrayCopy(sortedRightArray, 0, inputArray, rightStart, sortedRightArray.length);
   }
 
   return inputArray;
 }
+
 
 void swap(color[] _inputArray, color a, color b)
 {
@@ -49,7 +50,9 @@ void swap(color[] _inputArray, color a, color b)
   _inputArray[b] = temp;
 }
 
+/*******************************
 int [] doQuicksort(int[] array)
 {
   return quicksort(array);
 }
+*******************************/

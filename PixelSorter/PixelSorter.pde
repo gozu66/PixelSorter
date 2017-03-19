@@ -4,7 +4,7 @@ PImage outputImage;
 
 void setup()
 {  
-  img01 = loadImage("dif03.jpg");  
+  img01 = loadImage("12 pubs.jpg");  
   //img02 = loadImage("sim02.jpg");  
   outputImage = createImage(img01.pixelWidth, img01.pixelHeight, RGB);
   surface.setSize(img01.pixelWidth * 2, img01.pixelHeight);
