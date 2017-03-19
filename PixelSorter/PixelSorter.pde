@@ -4,7 +4,7 @@ PImage outputImage;
 
 void setup()
 {  
-  img01 = loadImage("12 pubs.jpg");  
+  img01 = loadImage("dif01_sm.jpg");  
   //img02 = loadImage("sim02.jpg");  
   outputImage = createImage(img01.pixelWidth, img01.pixelHeight, RGB);
   surface.setSize(img01.pixelWidth * 2, img01.pixelHeight);
@@ -25,16 +25,16 @@ void draw()
     running = true;
     outputImage = img01.copy();
 
-    outputImage.loadPixels();
+    //outputImage.loadPixels();
 
-    timer();
-    outputImage.pixels = bubbleSort(img01.pixels);
-    timer();   
+    //timer();
+    //outputImage.pixels = bubbleSort(img01.pixels);
+    //timer();   
 
-    outputImage.updatePixels();
+    //outputImage.updatePixels();
     
-    displayImages(img01, null, outputImage);
-    saveImages();
+    //displayImages(img01, null, outputImage);
+    //saveImages();
 
 
     
