@@ -1,20 +1,27 @@
-int[] bubbleSort(int[] inputArray)
+int percent = 0;
+
+color[] bubbleSort(color[] inputArray)
 {
   for (int i = 0; i < inputArray.length; i++)
   {
-    int lowest = inputArray[i];
-    int lowestIndex = i;
+    if(i % (inputArray.length / 100) == 0)
+    {
+      percent++;
+      println(percent + "%\n");
+    }
+    float best = hue(inputArray[i]);
+    int bestIndex = i;
     for (int j = i; j < inputArray.length; j++)
     {
-      if (inputArray[j] < lowest)
+      if (inputArray[j] < best)
       {
-        lowestIndex = j;
-        lowest = inputArray[j];
+        bestIndex = j;
+        best = inputArray[j];
       }
     }
     int temp = inputArray[i];
-    inputArray[i] = inputArray[lowestIndex];
-    inputArray[lowestIndex] = temp;
+    inputArray[i] = inputArray[bestIndex];
+    inputArray[bestIndex] = temp;
   }
 
   return inputArray;

@@ -1,78 +1,85 @@
-float t_start, t_stop;
+PImage img01;
+//PImage img02;
+PImage outputImage;
+
 void setup()
+{  
+  img01 = loadImage("dif03.jpg");  
+  //img02 = loadImage("sim02.jpg");  
+  outputImage = createImage(img01.pixelWidth, img01.pixelHeight, RGB);
+  surface.setSize(img01.pixelWidth * 2, img01.pixelHeight);
+}
+
+boolean running, displaying;
+
+void draw()
 {
-  int[] array = new int[100000];
-  for (int i = 0; i < array.length; i++)
+  if (!displaying)
   {
-    array[i] = (int)random(0, 1000);
+    displaying = true;
+    displayImages(img01, null, null);
   }
 
-  t_start = millis();
-  array = quicksort(array);
-  t_stop = millis() - t_start;
-  if (array.length < 1001)
+  if (keyPressed && !running)
   {
-    for (int i = 0; i < array.length; i++)
-    {
-      print(array[i]+",");
-    }
-  }
-  print("\n quicksort :" + t_stop + "ms\n");
+    running = true;
+    outputImage = img01.copy();
 
-  t_start = millis();
-  array = bubbleSort(array);
-  t_stop = millis() - t_start;
-  if (array.length < 1001)
-  {
-    for (int i = 0; i < array.length; i++)
-    {
-      print(array[i]+",");
-    }
+    outputImage.loadPixels();
+
+    timer();
+    outputImage.pixels = bubbleSort(img01.pixels);
+    timer();   
+
+    outputImage.updatePixels();
+    
+    displayImages(img01, null, outputImage);
+    saveImages();
+
+
+    
+    outputImage.loadPixels();
+
+    timer();   
+    outputImage.pixels = quicksort(img01.pixels);
+    timer();   
+
+    outputImage.updatePixels();
+
+    displayImages(img01, null, outputImage);
+    saveImages();
   }
-  print("\n bubble sort :" + t_stop + "ms\n");
 }
 
 
+void displayImages(PImage upLeft, PImage upRight, PImage downCenter)
+{
+  if (upLeft != null)image(upLeft, 0, 0);
+  if (upRight != null)image(upRight, img01.pixelWidth * 2, 0);
+  if (downCenter != null)image(downCenter, img01.pixelWidth, 0);
+}
 
-//PImage img01;
-//PImage img02;
-//PImage outputImage;
+void saveImages()
+{
+  save("full" + minute() + hour() + "_" + day() + "." + month() + "." + year());
+  outputImage.save("output" + minute() + hour() + "_" + day() + "." + month() + "." + year());
+}
 
-//float timer;
-
-//void setup()
-//{  
-//  img01 = loadImage("IMAG0374.jpg");  
-//  img02 = loadImage("sim02.jpg");  
-//  outputImage = createImage(img01.pixelWidth, img01.pixelHeight, RGB);
-//  surface.setSize(img01.pixelWidth * 2, img01.pixelHeight);
-//}
-
-//boolean running, displaying;
-
-//void draw()
-//{
-//  if (!displaying)
-//  {
-//    displaying = true;
-//    displayImages(img01, null, null);
-//  }
-
-//  if (keyPressed && !running)
-//  {
-//    running = true;
-//    outputImage = img01.copy();
-
-//    timer = millis();
-//    //recreateImage(img01, img02);
-//    sortPixels(outputImage);
-//    timer = millis() - timer;
-
-//    timer = timer / 1000;
-//    print("Sort time : " + timer + "s");
-//    saveImages();
-//  }
-//}
+float t_start, t_stop;
+boolean timerRunning = false;
+void timer()
+{
+  if (!timerRunning)
+  {
+    timerRunning = true;
+    t_start = millis();
+  } else
+  {
+    timerRunning = false;
+    t_stop = millis() - t_start;
+    print("Time to compleate : " + t_stop + "\n");
+  }
+}
 
 //void sortPixels(PImage input)
 //{
@@ -149,15 +156,41 @@ void setup()
 //  saveImages();
 //}
 
-//void displayImages(PImage upLeft, PImage upRight, PImage downCenter)
-//{
-//  if (upLeft != null)image(upLeft, 0, 0);
-//  if (upRight != null)image(upRight, img01.pixelWidth * 2, 0);
-//  if (downCenter != null)image(downCenter, img01.pixelWidth, 0);
-//}
 
-//void saveImages()
-//{
-//  save("full" + minute() + hour() + "_" + day() + "." + month() + "." + year());
-//  outputImage.save("output" + minute() + hour() + "_" + day() + "." + month() + "." + year());
-//}
+
+
+/*
+float t_start, t_stop;
+ void setup()
+ {
+ int[] array = new int[100000];
+ for (int i = 0; i < array.length; i++)
+ {
+ array[i] = (int)random(0, 1000);
+ }
+ 
+ t_start = millis();
+ array = quicksort(array);
+ t_stop = millis() - t_start;
+ if (array.length < 1001)
+ {
+ for (int i = 0; i < array.length; i++)
+ {
+ print(array[i]+",");
+ }
+ }
+ print("\n quicksort :" + t_stop + "ms\n");
+ 
+ t_start = millis();
+ array = bubbleSort(array);
+ t_stop = millis() - t_start;
+ if (array.length < 1001)
+ {
+ for (int i = 0; i < array.length; i++)
+ {
+ print(array[i]+",");
+ }
+ }
+ print("\n bubble sort :" + t_stop + "ms\n");
+ }
+ */
