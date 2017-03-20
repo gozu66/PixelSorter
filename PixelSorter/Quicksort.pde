@@ -1,4 +1,6 @@
-int[] quicksort(int[] inputArray) //<>//
+//Stack<int> s = new Stack<int>();  //<>//
+
+int[] quicksort(int[] inputArray) 
 {
   int pivot = inputArray.length - 1;
   int pointer = 0;

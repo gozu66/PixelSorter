@@ -1,12 +1,16 @@
 float t_start, t_stop;
 void setup()
 {
-  int[] array = new int[100000];
+  int[] array = new int[20];
   for (int i = 0; i < array.length; i++)
   {
-    array[i] = (int)random(0, 1000);
+    array[i] = (int)random(0, 10);
+    if(array.length <= 500)
+    {
+      print(array[i] + ", ");
+    }
   }
-
+  println("");
   t_start = millis();
   array = quicksort(array);
   t_stop = millis() - t_start;
@@ -14,10 +18,10 @@ void setup()
   {
     for (int i = 0; i < array.length; i++)
     {
-      print(array[i]+",");
+      print(array[i]+", ");
     }
   }
-  print("\n quicksort :" + t_stop + "ms\n");
+  print("\nquicksort :" + t_stop + "ms\n");
 
   t_start = millis();
   array = bubbleSort(array);
@@ -26,10 +30,10 @@ void setup()
   {
     for (int i = 0; i < array.length; i++)
     {
-      print(array[i]+",");
+      print(array[i]+", ");
     }
   }
-  print("\n bubble sort :" + t_stop + "ms\n");
+  print("\nbubble sort :" + t_stop + "ms\n");
 }
 
 
