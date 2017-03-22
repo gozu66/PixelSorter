@@ -4,12 +4,12 @@ color[] bubbleSort(color[] inputArray)
 {
   for (int i = 0; i < inputArray.length; i++)
   {
-    if(i % (inputArray.length / 100) == 0)
+    if(i % (inputArray.length / 20) == 0)
     {
-      percent++;
+      percent += 5;
       println(percent + "%\n");
     }
-    float best = hue(inputArray[i]);
+    float best = brightness(inputArray[i]);
     int bestIndex = i;
     for (int j = i; j < inputArray.length; j++)
     {
