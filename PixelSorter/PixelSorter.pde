@@ -3,7 +3,7 @@ void setup()
   size(1000, 600);
   background(100);
   noStroke();
-  UpdateUI();
+  updateUI(null);
 }
 
 boolean canTakeInput = true;
@@ -13,22 +13,34 @@ void draw()
   {
     imageMode(CENTER);
     image(display, width * 0.6f, height * 0.5f);
-        //image(display, 100, 100);
-
   }
-
 }
 
 void mousePressed()
 {
-  if (canTakeInput && b_loadImage != null)
+  if (canTakeInput)
   {
-    if (b_loadImage.checkClicks())
+    if (b_loadImage != null && b_loadImage.checkClicks())
     {
       selectInput("Select a file", "fileSelected");
     }
+    else if (b_sortPixels != null && b_sortPixels.checkClicks() && display != null)
+    {
+      //PImage display = display.get();
+      display.loadPixels();
+      display.pixels = quicksort(display.pixels);
+      display.updatePixels();
+      //updateUI(display);
+    }
+    else if (b_spiralPixels != null && b_spiralPixels.checkClicks() && display != null)
+    {
+      //PImage display = display.get();
+      display.loadPixels();      
+      display.pixels = spiralOutFromCenter(display.pixels, display.pixelWidth, display.pixelHeight);
+      display.updatePixels(); //<>//
+      //updateUI(display);
+    }
   }
-
   canTakeInput = false;
 }
 
@@ -40,18 +52,20 @@ void mouseReleased()
 
 PImage display;
 UIElement b_loadImage = new UIElement(0, "Choose a .jpg .gif or .png", new PVector(10, 10));
-void UpdateUI()
+UIElement b_sortPixels = new UIElement(0, "Sort Pixels", new PVector(10, 80));
+UIElement b_spiralPixels = new UIElement(0, "Spiral Pixels", new PVector(10, 150));
+
+void updateUI(PImage img)
 {
   fill(225);
   rect(width / 5, 0, width, height);
-  if (display != null)
+  if (img != null)
   {
-    //image(display, width * 0.6f, height * 0.3f); //<>//
-        image(display, 100, 100);
-
+    display = img;
   }
-
   b_loadImage._draw();
+  b_sortPixels._draw();
+  b_spiralPixels._draw();
 }
 
 float t_start, t_stop;

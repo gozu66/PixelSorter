@@ -1,4 +1,4 @@
-import java.util.ArrayDeque; //<>//
+import java.util.ArrayDeque;
 
 ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
@@ -49,6 +49,7 @@ color[] quicksort(color[] inputArray)
       continue;
     }
   }
+  stack.clear();
   return inputArray;
 }
 

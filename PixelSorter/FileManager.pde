@@ -12,9 +12,7 @@ void fileSelected(File selection)
     st = path.split("\\.");
     String ext = st[st.length - 1];    
 
-    display = loadImage(path);
-    image(display, 50, 50);
-    UpdateUI(); //<>//
+    updateUI(loadImage(path));
   }
 }
 
