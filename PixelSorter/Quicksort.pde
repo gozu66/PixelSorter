@@ -8,7 +8,7 @@ color[] quicksort(color[] inputArray)
   stack.push(inputArray.length - 1);
 
   int pointer, wall, pivot;
-
+  
   while (stack.size() > 0)
   {
     int rIndex = stack.pop();

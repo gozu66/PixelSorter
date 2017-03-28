@@ -1,116 +1,75 @@
-int Ox, Oy, ox, oy;
-int pixelAmt, pixelCount = 0;
-PImage scratch;
-
+int j = 0;
 color[] spiralOutFromCenter(color[] inputArray, int _width, int _height)
 {
-  scratch = new PImage(_width, _height);
-  pixelAmt = inputArray.length;
-  Ox = _width / 2;
-  Oy = _height / 2;
-  int percent = 0;
-  int ONEpercent = (pixelAmt * 2) / 100;
+  PImage scratch = new PImage(_width, _height); //<>//
+  int pixelAmt = inputArray.length;
+  //int pixelCount = 0;
+  //int Ox = _width / 2;
+  //int Oy = _height / 2;
+  int Ox = 0;
+  int Oy = 0;
 
-  //for (i = 0; i < pixelAmt * 2; i+=2)
-  while(true)
+  int i = 0;
+  j = 0;
+  //writePixel(Ox, Oy, pixelCount, pixelAmt, _width, scratch, inputArray);  
+
+  while (true) //<>//
   {
-    //if (i % ONEpercent == 0)
-    //{
-    //  percent++;
-    //  println(percent + "%");
+    //for (int a = 0; a < 1 + i; a++) {
+    //  writePixel(Ox, Oy - 1, pixelCount, pixelAmt, _width, scratch, inputArray);  
+    //  Oy = Oy - 1;
     //}
-
-    for (int a = 0; a < 1 + i; a++) {
-      //pixelCount += writePixel(inputArray, Ox, Oy - 1, _width, scratch.pixels);
-      ox = Ox;
-      oy = Oy - 1;
-      if (pixelCount + 1 < pixelAmt)
-      {
-
-        int cellRef = ox + (oy * _width);
-        if (cellRef >=10000)
-          err++;
-
-        if (cellRef < pixelAmt && cellRef >= 0 && j < pixelAmt)
-        {
-          scratch.pixels[cellRef] = inputArray[j];
-          j++;
-        }
-      }
-      Ox = ox;
-      Oy = oy;
+    //for (int b = 0; b < 1 + i; b++) {
+    //  writePixel(Ox - 1, Oy, pixelCount, pixelAmt, _width, scratch, inputArray);  
+    //  Ox = Ox - 1;
+    //}
+    //for (int c = 0; c < 2 + i; c++) {
+    //  writePixel(Ox, Oy + 1, pixelCount, pixelAmt, _width, scratch, inputArray);  
+    //  Oy = Oy + 1;
+    //}
+    //for (int d = 0; d < 2 + i; d++) {
+    //  writePixel(Ox + 1, Oy, pixelCount, pixelAmt, _width, scratch, inputArray);  
+    //  Ox = Ox + 1;
+    //}
+    for (int a = 0; a <= (_width - 2) - i; a++) {
+      writePixel(Ox, Oy, pixelAmt, _width, scratch, inputArray);  
+      Ox += 1;
     }
-    for (int b = 0; b < 1 + i; b++) {
-      //pixelCount += writePixel(inputArray, Ox - 1, Oy, _width, scratch.pixels);
-      ox = Ox - 1;
-      oy = Oy;
-      if (pixelCount + 1 < pixelAmt)
-      {
-        int cellRef = ox + (oy * _width);
-        if (cellRef >=10000)
-          err++;
 
-
-        if (cellRef < pixelAmt && cellRef >= 0 && j < pixelAmt)
-        {
-          scratch.pixels[cellRef] = inputArray[j];
-          j++;
-        }
-      }
-      Ox = ox;
-      Oy = oy;
+    for (int b = 0; b <= (_height - 2) - i; b++) {
+      writePixel(Ox, Oy, pixelAmt, _width, scratch, inputArray);  
+      Oy += 1;
     }
-    for (int c = 0; c < 2 + i; c++) {
-      //pixelCount += writePixel(inputArray, Ox, Oy + 1, _width, scratch.pixels);
-      ox = Ox;
-      oy = Oy + 1;
-      if (pixelCount + 1 < pixelAmt)
-      {
-        int cellRef = ox + (oy * _width);   
-        if (cellRef >=10000)
-          err++;
-
-        if (cellRef < pixelAmt && cellRef >= 0 && j < pixelAmt)
-        {
-          scratch.pixels[cellRef] = inputArray[j];
-          j++;
-        }
-      }
-      Ox = ox;
-      Oy = oy;
+    
+    for (int c = 0; c <= (_width - 2) - i; c++) {
+      writePixel(Ox, Oy, pixelAmt, _width, scratch, inputArray);  
+      Ox -= 1;
     }
-    for (int d = 0; d < 2 + i; d++) {
-      //pixelCount += writePixel(inputArray, Ox + 1, Oy, _width, scratch.pixels);
-      ox = Ox + 1;
-      oy = Oy;
-      if (pixelCount + 1 < pixelAmt)
-      {
-        int cellRef = ox + (oy * _width);
-        if (cellRef >=10000)
-          err++;
-
-        if (cellRef < pixelAmt && cellRef >= 0 && j < pixelAmt)
-        {
-          scratch.pixels[cellRef] = inputArray[j];
-          j++;
-        }
-      }
-      Ox = ox;
-      Oy = oy;
+    for (int d = 0; d <= (_height - 2) - i; d++) {
+      writePixel(Ox, Oy, pixelAmt, _width, scratch, inputArray);  
+      if(d < (_height - 2) - i)
+        Oy -= 1;
     }
+    Ox += 1;
     if (j >= pixelAmt)
     {
       updateUI(scratch);
       return scratch.pixels;
-    }
-    else{
+    } else {
       i += 2;
     }
   }
 }
-int err = 0;
-int j = 0;
-int i = 0;
-//int writePixel(color[] read, int ox, int oy, int _width, color[] write)
-//{
-//}
+
+void writePixel(int ox, int oy, int pixelAmt, int _width, PImage scratch, color[] inputArray)
+{
+  if (j < pixelAmt)
+  {
+    int cellRef = ox + (oy * _width);
+    if (cellRef < pixelAmt && cellRef >= 0 && j < pixelAmt)
+    {
+      scratch.pixels[cellRef] = inputArray[j];
+      j++;
+    }
+  }
+}
