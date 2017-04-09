@@ -1,42 +1,47 @@
-color[] LinearConditionalSort(color[] inputArray, int _width, int _height)
+color[] xyFullSort(color[] inputArray, int _width, int _height)
 {  
-  for (int col = 0; col < _width - 1; col++)
+  if (linearSortMode == 0)
   {
-    color[] column = sortColumn(col, _height, _width, inputArray);
-    for(int c = 0; c < column.length; c++)
+    for (int col = 0; col < _width; col++)
     {
-      inputArray[col + (c * _width)] = column[c];
+      color[] columnArray = sortColumn(col, _height, _width, inputArray);
+      for (int c = 0; c < columnArray.length; c++)
+      {
+        inputArray[col + (c * _width)] = columnArray[c];
+      }
+    }
+  } else if (linearSortMode == 1)
+  {
+    for (int row = 0; row < _height; row++)
+    {
+      color[] rowArray = sortRow(row, _width, inputArray);
+      for (int r = 0; r < _width; r++)
+      {
+        inputArray[(row * _width) + r] = rowArray[r];
+      }
     }
   }
-  //for (int row = 0; row < _height - 1; row++)
-  //{
-  //  color[] _row = sortRow(row, _height, _width, inputArray);
-  //  for(int r = 0; r < _row.length; r++)
-  //  {
-  //    inputArray[r + (row * _height)] = _row[r];
-  //  }
-  //}
   return inputArray;
 }
 
 color[] sortColumn(int col, int _height, int _width, color[] inputArray)
 {
   color[] unsorted = new color[_height];
-  for(int i = 0; i < _height - 1; i++)
+  for (int i = 0; i < _height - 1; i++)
   {
     unsorted[i] = inputArray[col + (i * _width)];
   }
-  color[] sorted = quicksort(unsorted);
+  color[] sorted = quicksort(unsorted, sortMode);
   return sorted;
 }
 
-color[] sortRow(int row, int _height, int _width, color[] inputArray)
+color[] sortRow(int row, int _width, color[] inputArray)
 {
   color[] unsorted = new color[_width];
-  for(int i = 0; i < _width - 1; i++)
+  for (int i = 0; i < _width - 1; i++)
   {
     unsorted[i] = inputArray[i + (row * _width)];
   }
-  color[] sorted = quicksort(unsorted);
+  color[] sorted = quicksort(unsorted, sortMode);
   return sorted;
 }

@@ -2,7 +2,7 @@ import java.util.ArrayDeque;
 
 ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
-color[] quicksort(color[] inputArray)
+color[] quicksort(color[] inputArray, int mode)
 {
   stack.push(0);
   stack.push(inputArray.length - 1);
@@ -21,11 +21,11 @@ color[] quicksort(color[] inputArray)
     boolean running = true;
     while (running)
     {
-      if (brightness(inputArray[pointer]) >= brightness(inputArray[pivot]))
+      if (getValueQs(inputArray[pointer], mode) >= getValueQs(inputArray[pivot], mode))
       {
         pointer++;
       } 
-      if (brightness(inputArray[pointer]) < brightness(inputArray[pivot]))
+      if (getValueQs(inputArray[pointer], mode) < getValueQs(inputArray[pivot], mode))
       {
         swap(inputArray, pointer, wall);
         pointer++;
@@ -58,4 +58,18 @@ void swap(int[] arr, int a, int b)
   int t = arr[a];
   arr[a] = arr[b];
   arr[b] = t;
+}
+
+float getValueQs(color c, int val)
+{
+  switch(val)
+  {
+    case 0:
+      return brightness(c);
+    case 1:
+      return saturation(c);
+    case 2:
+      return hue(c);
+  }
+  return -1.0f;
 }

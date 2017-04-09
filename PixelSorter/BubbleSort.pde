@@ -1,6 +1,6 @@
 int percent = 0;
 
-color[] bubbleSort(color[] inputArray)
+color[] bubbleSort(color[] inputArray, int mode)
 {
   for (int i = 0; i < inputArray.length; i++)
   {
@@ -9,7 +9,7 @@ color[] bubbleSort(color[] inputArray)
       percent += 5;
       println(percent + "%\n");
     }
-    float best = brightness(inputArray[i]);
+    float best = getValueBu(inputArray[i], mode);
     int bestIndex = i;
     for (int j = i; j < inputArray.length; j++)
     {
@@ -25,4 +25,18 @@ color[] bubbleSort(color[] inputArray)
   }
 
   return inputArray;
+}
+
+float getValueBu(color c, int val)
+{
+    switch(val)
+  {
+    case 0:
+      return brightness(c);
+    case 1:
+      return saturation(c);
+    case 2:
+      return hue(c);
+  }
+  return -1.0f;
 }
