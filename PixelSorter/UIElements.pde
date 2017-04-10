@@ -1,4 +1,4 @@
-int uiWidth = 160, uiHeight = 50, uiHalfHeight = 25, uiX = 10, uiY = 10; //<>//
+int uiWidth = 160, uiHeight = 50, uiHalfHeight = 25, uiX = 10, uiY = 10;
 //LOCAL SORT MODE is held be each UiSubElement
 //0 = sort brightness // 1 = sort Saturation // 2 = sortHue // 3 = Linear Sort horizontal // 4 = Linear Sort Vertical // etc. 
 
@@ -22,6 +22,7 @@ SubUiElement cb_linearSortHorizontal = new SubUiElement("Horiz", new PVector(uiW
 UiElement b_resetImage = new UiElement("Reset Image", new PVector(uiX, 460));
 UiElement b_saveOutput = new UiElement("Save Image", new PVector(uiX, 490));
 
+int pointer1, pointer2;
 
 class UiElement
 {
@@ -56,7 +57,7 @@ class UiElement
 
   void changeMode(int mode)
   {
-    println(mode + "heyhey");
+    
     switch(mode)
     {
     case 0:
@@ -109,6 +110,8 @@ class SubUiElement extends UiElement
 
 void drawUI()
 {
+  background(100);
+
   b_loadImage._draw();
   
   b_sortPixels._draw();
@@ -127,6 +130,33 @@ void drawUI()
   
   b_saveOutput._draw();
   b_resetImage._draw();  
+  
+  fill(255,0,0);
+  if(sortMode == 0)
+  {
+    ellipse(cb_sortModeBrightness.pos.x,cb_sortModeBrightness.pos.y, 10, 10);
+    ellipse(cb_linearSortModeBrightness.pos.x,cb_linearSortModeBrightness.pos.y, 10, 10);
+  }
+  else if(sortMode == 1)
+  {
+    ellipse(cb_sortModeSaturation.pos.x,cb_sortModeSaturation.pos.y, 10, 10);
+    ellipse(cb_linearSortModeSaturation.pos.x,cb_linearSortModeSaturation.pos.y, 10, 10);
+  }
+  else if(sortMode == 2)
+  {    
+    ellipse(cb_sortModeHue.pos.x,cb_sortModeHue.pos.y, 10, 10);
+    ellipse(cb_linearSortModeHue.pos.x,cb_linearSortModeHue.pos.y, 10, 10);
+  }
+  
+  if(linearSortMode == 0)
+  {
+    ellipse(cb_linearSortVertical.pos.x,cb_linearSortVertical.pos.y, 10, 10);
+  }
+  else if(linearSortMode == 1)
+  {
+    ellipse(cb_linearSortHorizontal.pos.x,cb_linearSortHorizontal.pos.y, 10, 10);
+  }
+  fill(200);
 }
 
 void mouseWasPressed()
@@ -186,4 +216,5 @@ void mouseWasPressed()
   {
     cb_linearSortHorizontal.changeMode(4);
   }
+  drawUI();
 }

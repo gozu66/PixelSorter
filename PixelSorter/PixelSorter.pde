@@ -1,4 +1,4 @@
-int globalW, globalH; //<>// //<>//
+int globalW, globalH;  //<>//
 boolean canTakeInput = true;
 int sortMode = 0;      // 0 = brightness  // 1 = saturation  // 2 = hue
 int linearSortMode = 0; // 0 = Vertical  // 1 = Horizontal

@@ -27,7 +27,7 @@ color[] xyFullSort(color[] inputArray, int _width, int _height)
 color[] sortColumn(int col, int _height, int _width, color[] inputArray)
 {
   color[] unsorted = new color[_height];
-  for (int i = 0; i < _height - 1; i++)
+  for (int i = 0; i < _height; i++)
   {
     unsorted[i] = inputArray[col + (i * _width)];
   }
@@ -38,7 +38,7 @@ color[] sortColumn(int col, int _height, int _width, color[] inputArray)
 color[] sortRow(int row, int _width, color[] inputArray)
 {
   color[] unsorted = new color[_width];
-  for (int i = 0; i < _width - 1; i++)
+  for (int i = 0; i < _width; i++)
   {
     unsorted[i] = inputArray[i + (row * _width)];
   }
