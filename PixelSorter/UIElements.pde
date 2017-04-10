@@ -4,10 +4,11 @@ int uiWidth = 160, uiHeight = 50, uiHalfHeight = 25, uiX = 10, uiY = 10;
 
 UiElement b_loadImage = new UiElement("Choose a .jpg .gif or .png", new PVector(uiX, 10));
 
-String sortModename = "Sort Pixels by brightness";
+String sortModename = "Full sort";
 UiElement b_sortPixels = new UiElement(sortModename, new PVector(uiX, 80));
-UiElement b_linearSort = new UiElement("Sort Pixels Linearly", new PVector(uiX, 150));
-UiElement b_spiralPixels = new UiElement("Spiral Pixels", new PVector(uiX, 230));
+UiElement b_linearSort = new UiElement("Linear sort", new PVector(uiX, 150));
+UiElement b_conditionalLinearSort = new UiElement("Linear sort with condition", new PVector(uiX, 230));
+UiElement b_spiralPixels = new UiElement("Spiral sort", new PVector(uiX, 310));
 
 SubUiElement cb_sortModeBrightness = new SubUiElement("Bright", new PVector(0, 5 + uiHalfHeight), b_sortPixels, 0);
 SubUiElement cb_sortModeSaturation = new SubUiElement("Sat", new PVector(uiWidth / 2 + 20, 5 + uiHalfHeight), b_sortPixels, 1);
@@ -125,6 +126,7 @@ void drawUI()
     cb_linearSortModeBrightness._draw();
     cb_linearSortModeSaturation._draw();
     cb_linearSortModeHue._draw();
+  b_conditionalLinearSort._draw();
 
   b_spiralPixels._draw();
   
@@ -182,7 +184,14 @@ void mouseWasPressed()
   {
     display.loadPixels();      
     timer();
-    display.pixels = xyFullSort(display.pixels, display.pixelWidth, display.pixelHeight);
+    display.pixels = linearSort(display.pixels, display.pixelWidth, display.pixelHeight);
+    timer();
+    display.updatePixels();
+  } else if (b_conditionalLinearSort != null && b_conditionalLinearSort.checkClicks() && display != null)
+  {
+    display.loadPixels();      
+    timer();
+    display.pixels = conditionalLinearSort(display.pixels, display.pixelWidth, display.pixelHeight);
     timer();
     display.updatePixels();
   } else if (b_resetImage != null && b_resetImage.checkClicks() && display != null)
